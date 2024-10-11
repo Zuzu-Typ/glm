@@ -15,7 +15,7 @@
 
 namespace fastCos
 {
-	static int perf(bool NextFloat)
+	int perf(bool NextFloat)
 	{
 		const float begin = -glm::pi<float>();
 		const float end = glm::pi<float>();
@@ -51,7 +51,7 @@ namespace fastSin
 	}
 	*/
 
-	static int perf(bool NextFloat)
+	int perf(bool NextFloat)
 	{
 		const float begin = -glm::pi<float>();
 		const float end = glm::pi<float>();
@@ -79,7 +79,7 @@ namespace fastSin
 
 namespace fastTan
 {
-	static int perf(bool NextFloat)
+	int perf(bool NextFloat)
 	{
 		const float begin = -glm::pi<float>();
 		const float end = glm::pi<float>();
@@ -107,7 +107,7 @@ namespace fastTan
 
 namespace fastAcos
 {
-	static int perf(bool NextFloat)
+	int perf(bool NextFloat)
 	{
 		const float begin = -glm::pi<float>();
 		const float end = glm::pi<float>();
@@ -136,7 +136,7 @@ namespace fastAcos
 
 namespace fastAsin
 {
-	static int perf(bool NextFloat)
+	int perf(bool NextFloat)
 	{
 		const float begin = -glm::pi<float>();
 		const float end = glm::pi<float>();
@@ -161,7 +161,7 @@ namespace fastAsin
 
 namespace fastAtan
 {
-	static int perf(bool NextFloat)
+	int perf(bool NextFloat)
 	{
 		const float begin = -glm::pi<float>();
 		const float end = glm::pi<float>();
@@ -188,20 +188,11 @@ namespace taylorCos
 {
 	using glm::qualifier;
 	using glm::length_t;
-
-#	if (GLM_COMPILER & GLM_COMPILER_CLANG)
-#		pragma clang diagnostic push
-#		pragma clang diagnostic ignored "-Wglobal-constructors"
-#	endif
-
+	
 	glm::vec4 const AngleShift(0.0f, glm::half_pi<float>(), glm::pi<float>(), glm::three_over_two_pi<float>());
 
-#	if (GLM_COMPILER & GLM_COMPILER_CLANG)
-#		pragma clang diagnostic pop
-#	endif
-
 	template<length_t L, typename T, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, T, Q> taylorSeriesNewCos(glm::vec<L, T, Q> const& x)
+	GLM_FUNC_QUALIFIER glm::vec<L, T, Q> taylorSeriesNewCos(glm::vec<L, T, Q> const& x)
 	{
 		glm::vec<L, T, Q> const Powed2(x * x);
 		glm::vec<L, T, Q> const Powed4(Powed2 * Powed2);
@@ -214,9 +205,9 @@ namespace taylorCos
 			- Powed6 * static_cast<T>(0.00138888888888888888888888888889)
 			+ Powed8 * static_cast<T>(2.4801587301587301587301587301587e-5);
 	}
-/*
+
 	template<length_t L, typename T, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, T, Q> taylorSeriesNewCos6(glm::vec<L, T, Q> const& x)
+	GLM_FUNC_QUALIFIER glm::vec<L, T, Q> taylorSeriesNewCos6(glm::vec<L, T, Q> const& x)
 	{
 		glm::vec<L, T, Q> const Powed2(x * x);
 		glm::vec<L, T, Q> const Powed4(Powed2 * Powed2);
@@ -227,10 +218,9 @@ namespace taylorCos
 			+ Powed4 * static_cast<T>(0.04166666666666666666666666666667)
 			- Powed6 * static_cast<T>(0.00138888888888888888888888888889);
 	}
-*/
-/*
+
 	template<glm::length_t L, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, float, Q> fastAbs(glm::vec<L, float, Q> x)
+	GLM_FUNC_QUALIFIER glm::vec<L, float, Q> fastAbs(glm::vec<L, float, Q> x)
 	{
 		int* Pointer = reinterpret_cast<int*>(&x[0]);
 		Pointer[0] &= 0x7fffffff;
@@ -241,21 +231,22 @@ namespace taylorCos
 	}
 
 	template<glm::length_t L, typename T, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, T, Q> fastCosNew(glm::vec<L, T, Q> const& x)
+	GLM_FUNC_QUALIFIER glm::vec<L, T, Q> fastCosNew(glm::vec<L, T, Q> const& x)
 	{
 		glm::vec<L, T, Q> const Angle0_PI(fastAbs(fmod(x + glm::pi<T>(), glm::two_pi<T>()) - glm::pi<T>()));
 		return taylorSeriesNewCos6(x);
-//		vec<L, bool, Q> const FirstQuarterPi(lessThanEqual(Angle0_PI, vec<L, T, Q>(glm::half_pi<T>())));
-
-//		vec<L, T, Q> const RevertAngle(mix(vec<L, T, Q>(glm::pi<T>()), vec<L, T, Q>(0), FirstQuarterPi));
-//		vec<L, T, Q> const ReturnSign(mix(vec<L, T, Q>(-1), vec<L, T, Q>(1), FirstQuarterPi));
-//		vec<L, T, Q> const SectionAngle(RevertAngle - Angle0_PI);
-
-//		return ReturnSign * taylorSeriesNewCos(SectionAngle);
-	}
-*/
 /*
-	static int perf_fastCosNew(float Begin, float End, std::size_t Samples)
+		vec<L, bool, Q> const FirstQuarterPi(lessThanEqual(Angle0_PI, vec<L, T, Q>(glm::half_pi<T>())));
+
+		vec<L, T, Q> const RevertAngle(mix(vec<L, T, Q>(glm::pi<T>()), vec<L, T, Q>(0), FirstQuarterPi));
+		vec<L, T, Q> const ReturnSign(mix(vec<L, T, Q>(-1), vec<L, T, Q>(1), FirstQuarterPi));
+		vec<L, T, Q> const SectionAngle(RevertAngle - Angle0_PI);
+
+		return ReturnSign * taylorSeriesNewCos(SectionAngle);
+*/
+	}
+
+	int perf_fastCosNew(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<glm::vec4> Results;
 		Results.resize(Samples);
@@ -276,15 +267,15 @@ namespace taylorCos
 			Error += Results[i].x >= -1.0f && Results[i].x <= 1.0f ? 0 : 1;
 		return Error;
 	}
-*/
+
 	template<length_t L, typename T, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, T, Q> deterministic_fmod(glm::vec<L, T, Q> const& x, T y)
+	GLM_FUNC_QUALIFIER glm::vec<L, T, Q> deterministic_fmod(glm::vec<L, T, Q> const& x, T y)
 	{
 		return x - y * trunc(x / y);
 	}
 
 	template<length_t L, typename T, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, T, Q> fastCosDeterminisctic(glm::vec<L, T, Q> const& x)
+	GLM_FUNC_QUALIFIER glm::vec<L, T, Q> fastCosDeterminisctic(glm::vec<L, T, Q> const& x)
 	{
 		glm::vec<L, T, Q> const Angle0_PI(abs(deterministic_fmod(x + glm::pi<T>(), glm::two_pi<T>()) - glm::pi<T>()));
 		glm::vec<L, bool, Q> const FirstQuarterPi(lessThanEqual(Angle0_PI, glm::vec<L, T, Q>(glm::half_pi<T>())));
@@ -296,7 +287,7 @@ namespace taylorCos
 		return ReturnSign * taylorSeriesNewCos(SectionAngle);
 	}
 
-	static int perf_fastCosDeterminisctic(float Begin, float End, std::size_t Samples)
+	int perf_fastCosDeterminisctic(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<glm::vec4> Results;
 		Results.resize(Samples);
@@ -319,7 +310,7 @@ namespace taylorCos
 	}
 
 	template<length_t L, typename T, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, T, Q> taylorSeriesRefCos(glm::vec<L, T, Q> const& x)
+	GLM_FUNC_QUALIFIER glm::vec<L, T, Q> taylorSeriesRefCos(glm::vec<L, T, Q> const& x)
 	{
 		return static_cast<T>(1)
 			- (x * x) / glm::factorial(static_cast<T>(2))
@@ -329,7 +320,7 @@ namespace taylorCos
 	}
 
 	template<length_t L, typename T, qualifier Q>
-	static GLM_FUNC_QUALIFIER glm::vec<L, T, Q> fastRefCos(glm::vec<L, T, Q> const& x)
+	GLM_FUNC_QUALIFIER glm::vec<L, T, Q> fastRefCos(glm::vec<L, T, Q> const& x)
 	{
 		glm::vec<L, T, Q> const Angle0_PI(glm::abs(fmod(x + glm::pi<T>(), glm::two_pi<T>()) - glm::pi<T>()));
 //		return taylorSeriesRefCos(Angle0_PI);
@@ -343,7 +334,7 @@ namespace taylorCos
 		return ReturnSign * taylorSeriesRefCos(SectionAngle);
 	}
 
-	static int perf_fastCosRef(float Begin, float End, std::size_t Samples)
+	int perf_fastCosRef(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<glm::vec4> Results;
 		Results.resize(Samples);
@@ -365,7 +356,7 @@ namespace taylorCos
 		return Error;
 	}
 
-	static int perf_fastCosOld(float Begin, float End, std::size_t Samples)
+	int perf_fastCosOld(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<glm::vec4> Results;
 		Results.resize(Samples);
@@ -387,7 +378,7 @@ namespace taylorCos
 		return Error;
 	}
 
-	static int perf_cos(float Begin, float End, std::size_t Samples)
+	int perf_cos(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<glm::vec4> Results;
 		Results.resize(Samples);
@@ -409,7 +400,7 @@ namespace taylorCos
 		return Error;
 	}
 
-	static int perf(std::size_t const Samples)
+	int perf(std::size_t const Samples)
 	{
 		int Error = 0;
 
@@ -425,7 +416,7 @@ namespace taylorCos
 		return Error;
 	}
 
-	static int test()
+	int test()
 	{
 		int Error = 0;
 
@@ -453,18 +444,9 @@ namespace taylorCos
 
 namespace taylor2
 {
-#	if (GLM_COMPILER & GLM_COMPILER_CLANG)
-#		pragma clang diagnostic push
-#		pragma clang diagnostic ignored "-Wglobal-constructors"
-#	endif
-
 	glm::vec4 const AngleShift(0.0f, glm::pi<float>() * 0.5f, glm::pi<float>() * 1.0f, glm::pi<float>() * 1.5f);
 
-#	if (GLM_COMPILER & GLM_COMPILER_CLANG)
-#		pragma clang diagnostic pop
-#	endif
-
-	static float taylorCosA(float x)
+	float taylorCosA(float x)
 	{
 		return 1.f
 			- (x * x) * (1.f / 2.f)
@@ -473,7 +455,7 @@ namespace taylor2
 			+ (x * x * x * x * x * x * x * x) * (1.f / 40320.f);
 	}
 
-	static float taylorCosB(float x)
+	float taylorCosB(float x)
 	{
 		return 1.f
 			- (x * x) * (1.f / 2.f)
@@ -482,7 +464,7 @@ namespace taylor2
 			+ (x * x * x * x * x * x * x * x) * (1.f / 40320.f);
 	}
 
-	static float taylorCosC(float x)
+	float taylorCosC(float x)
 	{
 		return 1.f
 			- (x * x) * (1.f / 2.f)
@@ -491,7 +473,7 @@ namespace taylor2
 			+ (((x * x) * (x * x)) * ((x * x) * (x * x))) * (1.f / 40320.f);
 	}
 
-	static int perf_taylorCosA(float Begin, float End, std::size_t Samples)
+	int perf_taylorCosA(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<float> Results;
 		Results.resize(Samples);
@@ -513,7 +495,7 @@ namespace taylor2
 		return Error;
 	}
 
-	static int perf_taylorCosB(float Begin, float End, std::size_t Samples)
+	int perf_taylorCosB(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<float> Results;
 		Results.resize(Samples);
@@ -535,7 +517,7 @@ namespace taylor2
 		return Error;
 	}
 
-	static int perf_taylorCosC(float Begin, float End, std::size_t Samples)
+	int perf_taylorCosC(float Begin, float End, std::size_t Samples)
 	{
 		std::vector<float> Results;
 		Results.resize(Samples);
@@ -557,7 +539,7 @@ namespace taylor2
 		return Error;
 	}
 
-	static int perf(std::size_t Samples)
+	int perf(std::size_t Samples)
 	{
 		int Error = 0;
 
@@ -581,12 +563,14 @@ int main()
 	Error += ::taylorCos::test();
 	Error += ::taylorCos::perf(1000);
 
-	::fastCos::perf(false);
-	::fastSin::perf(false);
-	::fastTan::perf(false);
-	::fastAcos::perf(false);
-	::fastAsin::perf(false);
-	::fastAtan::perf(false);
+#	ifdef NDEBUG
+		::fastCos::perf(false);
+		::fastSin::perf(false);
+		::fastTan::perf(false);
+		::fastAcos::perf(false);
+		::fastAsin::perf(false);
+		::fastAtan::perf(false);
+#	endif//NDEBUG
 
 	return Error;
 }

@@ -877,10 +877,10 @@ namespace detail
 ///////////////////////////////////////////////////////////////////////////////////
 // Silent warnings
 
-#ifdef GLM_FORCE_WARNINGS
-#	define GLM_SILENT_WARNINGS GLM_DISABLE
-#else
+#ifdef GLM_FORCE_SILENT_WARNINGS
 #	define GLM_SILENT_WARNINGS GLM_ENABLE
+#else
+#	define GLM_SILENT_WARNINGS GLM_DISABLE
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////////

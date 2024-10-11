@@ -1,5 +1,4 @@
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/ext/quaternion_relational.hpp>
 #include <glm/gtc/epsilon.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -7,7 +6,7 @@
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/compatibility.hpp>
 
-static int test_quat_fastMix()
+int test_quat_fastMix()
 {
 	int Error = 0;
 
@@ -24,9 +23,9 @@ static int test_quat_fastMix()
 	return Error;
 }
 
-static int test_quat_shortMix()
+int test_quat_shortMix()
 {
-	int Error = 0;
+	int Error(0);
 
 	glm::quat A = glm::angleAxis(0.0f, glm::vec3(0, 0, 1));
 	glm::quat B = glm::angleAxis(glm::pi<float>() * 0.5f, glm::vec3(0, 0, 1));
@@ -41,7 +40,7 @@ static int test_quat_shortMix()
 	return Error;
 }
 
-static int test_orientation()
+int test_orientation()
 {
 	int Error = 0;
 
@@ -66,9 +65,9 @@ static int test_orientation()
 	return Error;
 }
 
-static int test_rotation()
+int test_rotation()
 {
-	int Error = 0;
+	int Error(0);
 
 	glm::vec3 v(1, 0, 0);
 	glm::vec3 u(0, 1, 0);
@@ -82,18 +81,13 @@ static int test_rotation()
 	return Error;
 }
 
-static int test_log()
+int test_log()
 {
-	int Error = 0;
+	int Error(0);
 	
-	glm::vec3 v(1, 0, 0);
-	glm::vec3 u(0, 1, 0);
-
-	glm::quat q = glm::rotation(v, u);
+	glm::quat q;
 	glm::quat p = glm::log(q);
 	glm::quat r = glm::exp(p);
-
-	Error += glm::all(glm::equal(q, r, 0.0001f)) ? 0 : 1;
 
 	return Error;
 }

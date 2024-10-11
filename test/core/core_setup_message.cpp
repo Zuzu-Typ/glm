@@ -2,11 +2,11 @@
 #include <glm/vec3.hpp>
 #include <cstdio>
 
-static int test_compiler()
+int test_compiler()
 {
 	int Error(0);
 	
-#	if(GLM_COMPILER & GLM_COMPILER_VC)
+	if(GLM_COMPILER & GLM_COMPILER_VC)
 	{
 		switch(GLM_COMPILER)
 		{
@@ -49,7 +49,7 @@ static int test_compiler()
 			break;
 		}
 	}
-#	elif(GLM_COMPILER & GLM_COMPILER_GCC)
+	else if(GLM_COMPILER & GLM_COMPILER_GCC)
 	{
 		switch(GLM_COMPILER)
 		{
@@ -101,11 +101,11 @@ static int test_compiler()
 			break;
 		}
 	}
-#	elif(GLM_COMPILER & GLM_COMPILER_CUDA)
+	else if(GLM_COMPILER & GLM_COMPILER_CUDA)
 	{
 		std::printf("CUDA\n");
 	}
-#	elif(GLM_COMPILER & GLM_COMPILER_CLANG)
+	else if(GLM_COMPILER & GLM_COMPILER_CLANG)
 	{
 		switch(GLM_COMPILER)
 		{
@@ -180,7 +180,7 @@ static int test_compiler()
 			break;
 		}
 	}
-#	elif(GLM_COMPILER & GLM_COMPILER_INTEL)
+	else if(GLM_COMPILER & GLM_COMPILER_INTEL)
 	{
 		switch(GLM_COMPILER)
 		{
@@ -211,83 +211,67 @@ static int test_compiler()
 			break;
 		}
 	}
-#else
+	else
 	{
 		std::printf("Undetected compiler\n");
 		Error += 1;
 	}
-#endif
+	
 	return Error;
 }
 
-static int test_model()
+int test_model()
 {
 	int Error = 0;
 	
 	Error += ((sizeof(void*) == 4) && (GLM_MODEL == GLM_MODEL_32)) || ((sizeof(void*) == 8) && (GLM_MODEL == GLM_MODEL_64)) ? 0 : 1;
 	
-#	if GLM_MODEL == GLM_MODEL_32
+	if(GLM_MODEL == GLM_MODEL_32)
 		std::printf("GLM_MODEL_32\n");
-#	elif GLM_MODEL == GLM_MODEL_64
+	else if(GLM_MODEL == GLM_MODEL_64)
 		std::printf("GLM_MODEL_64\n");
-#	endif
-
+	
 	return Error;
 }
 
-static int test_instruction_set()
+int test_instruction_set()
 {
 	int Error = 0;
 
 	std::printf("GLM_ARCH: ");
 
-#	if(GLM_ARCH & GLM_ARCH_ARM_BIT)
+	if(GLM_ARCH & GLM_ARCH_ARM_BIT)
 		std::printf("ARM ");
-#	elif(GLM_ARCH & GLM_ARCH_NEON_BIT)
+	if(GLM_ARCH & GLM_ARCH_NEON_BIT)
 		std::printf("NEON ");
-#	elif(GLM_ARCH & GLM_ARCH_AVX2_BIT)
+	if(GLM_ARCH & GLM_ARCH_AVX2_BIT)
 		std::printf("AVX2 ");
-#	elif(GLM_ARCH & GLM_ARCH_AVX_BIT)
+	if(GLM_ARCH & GLM_ARCH_AVX_BIT)
 		std::printf("AVX ");
-#	elif(GLM_ARCH & GLM_ARCH_SSE42_BIT)
+	if(GLM_ARCH & GLM_ARCH_SSE42_BIT)
 		std::printf("SSE4.2 ");
-#	elif(GLM_ARCH & GLM_ARCH_SSE41_BIT)
+	if(GLM_ARCH & GLM_ARCH_SSE41_BIT)
 		std::printf("SSE4.1 ");
-#	elif(GLM_ARCH & GLM_ARCH_SSSE3_BIT)
+	if(GLM_ARCH & GLM_ARCH_SSSE3_BIT)
 		std::printf("SSSE3 ");
-#	elif(GLM_ARCH & GLM_ARCH_SSE3_BIT)
+	if(GLM_ARCH & GLM_ARCH_SSE3_BIT)
 		std::printf("SSE3 ");
-#	elif(GLM_ARCH & GLM_ARCH_SSE2_BIT)
+	if(GLM_ARCH & GLM_ARCH_SSE2_BIT)
 		std::printf("SSE2 ");
-#	endif
 
 	std::printf("\n");
 
 	return Error;
 }
 
-static int test_cpp_version()
+int test_cpp_version()
 {
 	std::printf("__cplusplus: %d\n", static_cast<int>(__cplusplus));
 	
-	std::printf("GLM_LANG: ");
-
-#	if(GLM_LANG & GLM_LANG_CXX20_FLAG)
-		std::printf("C++ 20");
-#	elif(GLM_LANG & GLM_LANG_CXX17_FLAG)
-		std::printf("C++ 17");
-#	elif(GLM_LANG & GLM_LANG_CXX14_FLAG)
-		std::printf("C++ 14");
-#	elif(GLM_LANG & GLM_LANG_CXX11_FLAG)
-		std::printf("C++ 11");
-#	elif(GLM_LANG & GLM_LANG_CXX98_FLAG)
-		std::printf("C++ 98");
-#	endif
-
 	return 0;
 }
 
-static int test_operators()
+int test_operators()
 {
 	glm::ivec3 A(1);
 	glm::ivec3 B(1);

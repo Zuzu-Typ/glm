@@ -17,11 +17,6 @@
 
 namespace isPowerOfTwo
 {
-#if GLM_COMPILER & GLM_COMPILER_CLANG
-#	pragma clang diagnostic push
-#	pragma clang diagnostic ignored "-Wpadded"
-#endif
-
 	template<typename genType>
 	struct type
 	{
@@ -29,12 +24,8 @@ namespace isPowerOfTwo
 		bool		Return;
 	};
 
-#if GLM_COMPILER & GLM_COMPILER_CLANG
-#	pragma clang diagnostic pop
-#endif
-
 	template <glm::length_t L>
-	static int test_int16()
+	int test_int16()
 	{
 		type<glm::int16> const Data[] =
 		{
@@ -58,7 +49,7 @@ namespace isPowerOfTwo
 	}
 
 	template <glm::length_t L>
-	static int test_uint16()
+	int test_uint16()
 	{
 		type<glm::uint16> const Data[] =
 		{
@@ -82,7 +73,7 @@ namespace isPowerOfTwo
 	}
 
 	template <glm::length_t L>
-	static int test_int32()
+	int test_int32()
 	{
 		type<int> const Data[] =
 		{
@@ -106,7 +97,7 @@ namespace isPowerOfTwo
 	}
 
 	template <glm::length_t L>
-	static int test_uint32()
+	int test_uint32()
 	{
 		type<glm::uint> const Data[] =
 		{
@@ -129,7 +120,7 @@ namespace isPowerOfTwo
 		return Error;
 	}
 
-	static int test()
+	int test()
 	{
 		int Error = 0;
 
@@ -160,7 +151,7 @@ namespace isPowerOfTwo
 namespace prevPowerOfTwo
 {
 	template <glm::length_t L, typename T>
-	static int run()
+	int run()
 	{
 		int Error = 0;
 
@@ -179,7 +170,7 @@ namespace prevPowerOfTwo
 		return Error;
 	}
 
-	static int test()
+	int test()
 	{
 		int Error = 0;
 
@@ -230,7 +221,7 @@ namespace prevPowerOfTwo
 namespace nextPowerOfTwo
 {
 	template <glm::length_t L, typename T>
-	static int run()
+	int run()
 	{
 		int Error = 0;
 
@@ -249,7 +240,7 @@ namespace nextPowerOfTwo
 		return Error;
 	}
 
-	static int test()
+	int test()
 	{
 		int Error = 0;
 
@@ -308,7 +299,7 @@ namespace prevMultiple
 	};
 
 	template <glm::length_t L, typename T>
-	static int run()
+	int run()
 	{
 		type<T> const Data[] =
 		{
@@ -330,7 +321,7 @@ namespace prevMultiple
 		return Error;
 	}
 
-	static int test()
+	int test()
 	{
 		int Error = 0;
 
@@ -389,7 +380,7 @@ namespace nextMultiple
 	};
 
 	template <glm::length_t L, typename T>
-	static int run()
+	int run()
 	{
 		type<T> const Data[] =
 		{
@@ -415,7 +406,7 @@ namespace nextMultiple
 		return Error;
 	}
 
-	static int test()
+	int test()
 	{
 		int Error = 0;
 
@@ -465,11 +456,6 @@ namespace nextMultiple
 
 namespace findNSB
 {
-#if GLM_COMPILER & GLM_COMPILER_CLANG
-#	pragma clang diagnostic push
-#	pragma clang diagnostic ignored "-Wpadded"
-#endif
-
 	template<typename T>
 	struct type
 	{
@@ -478,12 +464,8 @@ namespace findNSB
 		int Return;
 	};
 
-#if GLM_COMPILER & GLM_COMPILER_CLANG
-#	pragma clang diagnostic pop
-#endif
-
 	template <glm::length_t L, typename T>
-	static int run()
+	int run()
 	{
 		type<T> const Data[] =
 		{
@@ -511,7 +493,7 @@ namespace findNSB
 		return Error;
 	}
 
-	static int test()
+	int test()
 	{
 		int Error = 0;
 
@@ -560,11 +542,6 @@ namespace findNSB
 	}
 }//namespace findNSB
 
-#if GLM_COMPILER & GLM_COMPILER_CLANG
-#	pragma clang diagnostic push
-#	pragma clang diagnostic ignored "-Wpadded"
-#endif
-
 template<typename T, typename B>
 struct test_mix_entry
 {
@@ -573,10 +550,6 @@ struct test_mix_entry
 	B a;
 	T Result;
 };
-
-#if GLM_COMPILER & GLM_COMPILER_CLANG
-#	pragma clang diagnostic pop
-#endif
 
 static int test_mix()
 {

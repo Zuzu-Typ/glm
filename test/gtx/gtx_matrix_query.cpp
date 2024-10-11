@@ -1,7 +1,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_query.hpp>
 
-static int test_isNull()
+int test_isNull()
 {
 	int Error(0);
 	
@@ -11,7 +11,7 @@ static int test_isNull()
 	return Error;
 }
 
-static int test_isIdentity()
+int test_isIdentity()
 {
 	int Error(0);
 	
@@ -31,7 +31,7 @@ static int test_isIdentity()
 	return Error;
 }
 
-static int test_isNormalized()
+int test_isNormalized()
 {
 	int Error(0);
 
@@ -41,7 +41,7 @@ static int test_isNormalized()
 	return Error;
 }
 
-static int test_isOrthogonal()
+int test_isOrthogonal()
 {
 	int Error(0);
 
