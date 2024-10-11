@@ -9,7 +9,7 @@
 ///
 /// Include <glm/gtx/quaternion.hpp> to use the features of this extension.
 ///
-/// Extended quaternion types and functions
+/// Extented quaternion types and functions
 
 #pragma once
 
