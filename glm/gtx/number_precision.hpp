@@ -26,7 +26,8 @@
 #	endif
 #endif
 
-namespace glm
+namespace glm{
+namespace gtx
 {
 	/////////////////////////////
 	// Unsigned int vector types
@@ -54,6 +55,7 @@ namespace glm
 	typedef f64			f64mat1x1;	//!< \brief Double-qualifier floating-point scalar. (from GLM_GTX_number_precision extension)
 
 	/// @}
+}//namespace gtx
 }//namespace glm
 
 #include "number_precision.inl"
