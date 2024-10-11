@@ -54,7 +54,7 @@ namespace glm
 #			ifdef GLM_FORCE_QUAT_DATA_WXYZ
 				T w, x, y, z;
 #			else
-				T x, y, z, w;
+				T w, x, y, z;
 #			endif
 #		endif
 
