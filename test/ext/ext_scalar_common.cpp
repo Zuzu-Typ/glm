@@ -39,36 +39,6 @@ static int test_min()
 }
 
 template <typename T>
-static int test_max()
-{
-	int Error = 0;
-
-	T const N = static_cast<T>(0);
-	T const B = static_cast<T>(1);
-	Error += glm::equal(glm::max(N, B), B, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(B, N), B, glm::epsilon<T>()) ? 0 : 1;
-
-	T const C = static_cast<T>(2);
-	Error += glm::equal(glm::max(N, B, C), C, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(B, N, C), C, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(C, N, B), C, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(C, B, N), C, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(B, C, N), C, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(N, C, B), C, glm::epsilon<T>()) ? 0 : 1;
-
-	T const D = static_cast<T>(3);
-	Error += glm::equal(glm::max(D, N, B, C), D, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(B, D, N, C), D, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(C, N, D, B), D, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(C, B, D, N), D, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(B, C, N, D), D, glm::epsilon<T>()) ? 0 : 1;
-	Error += glm::equal(glm::max(N, C, B, D), D, glm::epsilon<T>()) ? 0 : 1;
-
-	return Error;
-}
-
-#if ((GLM_LANG & GLM_LANG_CXX11_FLAG) || (GLM_COMPILER & GLM_COMPILER_VC))
-template <typename T>
 static int test_min_nan()
 {
 	int Error = 0;
@@ -93,6 +63,35 @@ static int test_min_nan()
 	Error += !glm::isnan(glm::min(C, B, D, N)) ? 0 : 1;
 	Error += !glm::isnan(glm::min(B, C, N, D)) ? 0 : 1;
 	Error += glm::isnan(glm::min(N, C, B, D)) ? 0 : 1;
+
+	return Error;
+}
+
+template <typename T>
+static int test_max()
+{
+	int Error = 0;
+
+	T const N = static_cast<T>(0);
+	T const B = static_cast<T>(1);
+	Error += glm::equal(glm::max(N, B), B, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(B, N), B, glm::epsilon<T>()) ? 0 : 1;
+
+	T const C = static_cast<T>(2);
+	Error += glm::equal(glm::max(N, B, C), C, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(B, N, C), C, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(C, N, B), C, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(C, B, N), C, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(B, C, N), C, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(N, C, B), C, glm::epsilon<T>()) ? 0 : 1;
+
+	T const D = static_cast<T>(3);
+	Error += glm::equal(glm::max(D, N, B, C), D, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(B, D, N, C), D, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(C, N, D, B), D, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(C, B, D, N), D, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(B, C, N, D), D, glm::epsilon<T>()) ? 0 : 1;
+	Error += glm::equal(glm::max(N, C, B, D), D, glm::epsilon<T>()) ? 0 : 1;
 
 	return Error;
 }
@@ -183,7 +182,6 @@ static int test_fmax()
 
 	return Error;
 }
-#endif//
 
 static int test_clamp()
 {
@@ -336,15 +334,11 @@ int main()
 
 	Error += test_min<float>();
 	Error += test_min<double>();
-
-
-	Error += test_max<float>();
-	Error += test_max<double>();
-
-#if ((GLM_LANG & GLM_LANG_CXX11_FLAG) || (GLM_COMPILER & GLM_COMPILER_VC))
 	Error += test_min_nan<float>();
 	Error += test_min_nan<double>();
 
+	Error += test_max<float>();
+	Error += test_max<double>();
 	Error += test_max_nan<float>();
 	Error += test_max_nan<double>();
 
@@ -353,7 +347,6 @@ int main()
 
 	Error += test_fmax<float>();
 	Error += test_fmax<double>();
-#endif//
 
 	Error += test_clamp();
 	Error += test_repeat();
